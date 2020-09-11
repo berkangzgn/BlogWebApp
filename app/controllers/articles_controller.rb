@@ -16,8 +16,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def update
     if @article.update(article_params)
@@ -29,8 +28,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def index
     @articles = Article.all
