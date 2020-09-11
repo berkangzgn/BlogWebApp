@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = "Article was successfully created"
       redirect_to article_path(@article)
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
       redirect_to article_path(@article)
     else
       flash[:notice] = "Article was not updated"
-      render 'edit'
+      render :edit
     end
   end
 
