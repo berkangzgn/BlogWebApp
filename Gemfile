@@ -61,3 +61,8 @@ gem 'sassc-rails', '>= 2.1.0'
 
 #jquery integrated into rails
 gem 'jquery-rails'
+
+#Required for users passwords gem
+gem 'bcrypt', '~> 3.1.7'
+
+
