@@ -33,8 +33,14 @@ class ArticlesController < ApplicationController
   def show; end
 
   def destroy
-    @article.destroy
-    flash[:danger] = "Article was deleted"
+    @article=Article.find(params[:id])
+    if current_user == @article.user
+      @article.destroy
+      flash[:danger] = "Article was deleted"
+    else
+      flash[:danger] = "You cannot delete this article because you did not create it."
+    end
+
     redirect_to articles_path
   end
 
