@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
     if @article.save
       flash[:success] = "Article was successfully created"
       redirect_to article_path(@article)
@@ -33,8 +33,14 @@ class ArticlesController < ApplicationController
   def show; end
 
   def destroy
-    @article.destroy
-    flash[:danger] = "Article was deleted"
+    @article=Article.find(params[:id])
+    if current_user == @article.user
+      @article.destroy
+      flash[:danger] = "Article was deleted"
+    else
+      flash[:danger] = "You cannot delete this article because you did not create it."
+    end
+
     redirect_to articles_path
   end
 
