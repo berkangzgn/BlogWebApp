@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
       redirect_to articles_path
@@ -33,6 +32,19 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+
+    if current_user == @user
+      @user.destroy
+      flash[:success] = "User was deleted"
+      redirect_to users_path
+    else
+      flash[:danger] = "You cannot delete this user because you are not the person you deleted."
+      redirect_to users_path
+    end
   end
 
   private
