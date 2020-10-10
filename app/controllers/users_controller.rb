@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update, :show, :destroy]
 
   def index
     @users = User.paginate(page: params[:page], per_page: 5)
@@ -6,6 +7,10 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   def create
@@ -17,10 +22,6 @@ class UsersController < ApplicationController
       render :new; end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
-
   def update
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
@@ -30,13 +31,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
 
   def destroy
-    @user = User.find(params[:id])
-
     if current_user == @user
       @user.destroy
       flash[:success] = "User was deleted"
@@ -48,6 +46,9 @@ class UsersController < ApplicationController
   end
 
   private
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:username, :email, :password)
