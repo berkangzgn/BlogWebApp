@@ -10,7 +10,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    if current_user == @user
+      @user = User.find(params[:id])
+    else
+      flash[:danger] = "You cannot update this user because you are not the person you deleted."
+      redirect_to users_path
+    end
   end
 
   def create
@@ -23,11 +28,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      flash[:success] = "Your account was updated successfully"
-      redirect_to articles_path
-    else
-      render :edit; end
+      if @user.update(user_params)
+        flash[:success] = "Your account was updated successfully"
+        redirect_to articles_path
+      else
+        render :edit; end
   end
 
   def show
