@@ -1,62 +1,59 @@
-class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show, :destroy]
+class ArticlesController < ApplicationController
+  before_action :set_article, only: [:edit, :update, :show, :destroy]
 
   def index
-    @users = User.paginate(page: params[:page], per_page: 5)
+    @articles = Article.paginate(page: params[:page], per_page: 5)
   end
 
   def new
-    @user = User.new
+    @article = Article.new
   end
 
-  def edit
-    if current_user == @user
-      @user = User.find(params[:id])
-    else
-      flash[:danger] = "You cannot update this user because you are not the person you deleted."
-      redirect_to users_path
-    end
-  end
+  def edit; end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      flash[:success] = "Welcome to the Word Life #{@user.username}"
-      redirect_to articles_path
+    @article = Article.new(article_params)
+    @article.user = current_user
+    if @article.save
+      flash[:success] = "Article was successfully created"
+      redirect_to article_path(@article)
     else
       render :new; end
   end
 
   def update
-    if @user.update(user_params)
-      flash[:success] = "Your account was updated successfully"
-      redirect_to articles_path
+    if current_user == @user
+      if @article.update(article_params)
+        flash[:success] = "Article was updated"
+        redirect_to article_path(@article)
+      else
+        flash[:danger] = "Article was not updated"
+        render :edit; end
     else
-      render :edit; end
+      flash[:danger] = "You cannot update this user because you didn't create this article."
+      redirect_to articles_path
+    end
   end
 
-  def show
-    @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
-  end
+  def show; end
 
   def destroy
     if current_user == @user
-      @user.destroy
-      flash[:success] = "User was deleted"
-      redirect_to users_path
+      @article.destroy
+      flash[:danger] = "Article was deleted"
+      redirect_to articles_path
     else
-      flash[:danger] = "You cannot delete this user because you are not the person you deleted."
-      redirect_to users_path
+      flash[:danger] = "You cannot update this user because you didn't create this article."
+      redirect_to articles_path
     end
   end
 
   private
-  def set_user
-    @user = User.find(params[:id])
+  def set_article
+    @article = Article.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:username, :email, :password)
+  def article_params
+    params.require(:article).permit(:title, :description)
   end
-
 end
