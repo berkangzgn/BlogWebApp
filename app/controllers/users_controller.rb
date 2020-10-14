@@ -9,14 +9,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-    if current_user == @user
-      @user = User.find(params[:id])
-    else
-      flash[:danger] = "You cannot update this user because you are not the person you deleted."
-      redirect_to users_path
-    end
-  end
+  def edit; end
 
   def create
     @user = User.new(user_params)
