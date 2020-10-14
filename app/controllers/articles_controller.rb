@@ -41,11 +41,10 @@ class ArticlesController < ApplicationController
     if current_user == @user
       @article.destroy
       flash[:danger] = "Article was deleted"
-      redirect_to articles_path
     else
       flash[:danger] = "You cannot update this user because you didn't create this article."
-      redirect_to articles_path
     end
+    redirect_to articles_path
   end
 
   private

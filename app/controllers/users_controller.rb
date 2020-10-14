@@ -43,11 +43,10 @@ class UsersController < ApplicationController
     if current_user == @user
       @user.destroy
       flash[:success] = "User was deleted"
-      redirect_to users_path
     else
       flash[:danger] = "You cannot delete this user because you are not the person you deleted."
-      redirect_to users_path
     end
+    redirect_to users_path
   end
 
   private
