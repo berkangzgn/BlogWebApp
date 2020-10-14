@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
   def show; end
 
   def destroy
-    if current_user == @user
+    if current_user == @article.user
       @article.destroy
       flash[:danger] = "Article was deleted"
     else
