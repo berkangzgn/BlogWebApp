@@ -33,8 +33,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if current_user == @user
-      @user.destroy
+    if current_user == @user && @user.destroy
+
       flash[:success] = "User was deleted"
     else
       flash[:danger] = "You cannot delete this user because you are not the person you deleted."
