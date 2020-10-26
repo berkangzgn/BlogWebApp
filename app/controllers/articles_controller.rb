@@ -22,25 +22,28 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update(article_params)
-      flash[:success] = "Article was updated"
-      redirect_to article_path(@article)
+    if current_user == @article.user
+      if @article.update(article_params)
+        flash[:success] = "Article was updated"
+        redirect_to article_path(@article)
+      else
+        flash[:danger] = "Article was not updated"
+        render :edit; end
     else
-      flash[:danger] = "Article was not updated"
-      render :edit; end
+      flash[:danger] = "You cannot update this user because you didn't create this article."
+      redirect_to articles_path
+    end
   end
 
   def show; end
 
   def destroy
-    @article=Article.find(params[:id])
     if current_user == @article.user
       @article.destroy
       flash[:danger] = "Article was deleted"
     else
-      flash[:danger] = "You cannot delete this article because you did not create it."
+      flash[:danger] = "You cannot update this user because you didn't create this article."
     end
-
     redirect_to articles_path
   end
 
