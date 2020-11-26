@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :show, :destroy]
+  before_action :set_user, only: [:edit, :update, :show]
 
   def index
     @users = User.paginate(page: params[:page], per_page: 5)
@@ -30,16 +30,6 @@ class UsersController < ApplicationController
 
   def show
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
-  end
-
-  def destroy
-    if current_user == @user && @user.destroy
-
-      flash[:success] = "User was deleted"
-    else
-      flash[:danger] = "You cannot delete this user because you are not the person you deleted."
-    end
-    redirect_to users_path
   end
 
   private

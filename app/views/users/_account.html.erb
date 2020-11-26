@@ -1,0 +1,16 @@
+<% if logged_in? %>
+<div class="account">
+  <div class="well well-lg">
+    <%= gravatar_for current_user, size: 40 %>
+    <b><%= current_user.username %>'s Account</b>
+    <hr/>
+
+    <div class="user-actions">
+      <li> <%= link_to "Click to show your articles.", user_path(current_user), class: "btn btn-xl btn-info" %></li><br>
+      <li> <%= link_to "Click to update your account.", edit_user_path(current_user), class: "btn btn-xl btn-primary" %></li><br>
+      <li> <%= link_to "Click to delete your account.", user_path(current_user), method: :delete, data: { confirm: "Are you sure you want to delete this user?"}, class: "btn btn-xl btn-danger" %></li>
+    </div>
+  </div>
+</div>
+<%else%>
+<%end %>
