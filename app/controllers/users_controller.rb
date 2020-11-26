@@ -32,10 +32,7 @@ class UsersController < ApplicationController
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
 
-  def destroy
-    flash[:success] = "User was deleted"
-    redirect_to users_path
-  end
+  def destroy; end
 
   private
   def set_user
