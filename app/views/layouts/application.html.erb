@@ -5,12 +5,18 @@
       <%= csrf_meta_tags %>
       <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
       <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
     <body>
-    <%= render 'layouts/navigation' %>
-    <%= render 'shared/messages' %>
-    <%= yield %>
+      <%= render 'layouts/navigation' %>
+      <div class="col-lg-3 col-offset-2" >
+        <%= render 'users/account' %>
+      </div>
+      <div class="col-sm-9 col-offset-2">
+        <%= render 'shared/messages' %>
+        <%= yield %>
+      </div>
     </body>
   </html>
 </html>

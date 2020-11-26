@@ -25,6 +25,8 @@ $navbar-default-bg: black;
   border-top: 305px;
   padding-top: 5px;
   position: relative;
+  list-style: none;
+  font-size: 15px;
 }
 
 .article-title {
@@ -59,4 +61,22 @@ $navbar-default-bg: black;
   width: 100%;
   height: 130px;
   padding: 50px;
+}
+
+.account{
+  font-size: large;
+  position: fixed;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.mode {
+  float:right;
+}
+.change {
+  width: 20px;
+  text-align: center;
+}
+.dark{
+  background-color: #222;
 }
