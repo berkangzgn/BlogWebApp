@@ -24,15 +24,19 @@ class ArticlesController < ApplicationController
   def update
     if @article.update(article_params)
       flash[:danger] = "Article was not updated"
-      render :edit; end
+      render :edit end
   end
 
   def show; end
 
   def destroy
     @article.destroy
-    flash[:danger] = "Article was deleted"
-    redirect_to articles_path
+    if @article.destroy(@article)
+      flash[:danger] = "Article was deleted"
+      redirect_to articles_path
+    else
+      flash[:danger] = "Article wasn't deleted"
+    end
   end
 
   private
