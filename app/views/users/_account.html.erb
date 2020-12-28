@@ -1,7 +1,7 @@
 <% if logged_in? %>
 <div class="account">
   <div class="well well-lg">
-    <%= gravatar_for current_user, size: 40 %>
+    <%= link_to gravatar_for(current_user), user_path(current_user), size: 40 %>
     <b><%= current_user.username %>'s Account</b>
     <hr/>
 
